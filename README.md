@@ -1,2 +1,2 @@
 # ArdiunoMusic
-This project is not functional, its an expirement.
+This project is an expanding personal effort to create a system for controlling speakers, motors, and more using midi input and Arduino.
