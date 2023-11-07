@@ -1,4 +1,5 @@
- #include <vector>
+#include <ArduinoSTL.h>
+
 
 const int buzzer = 9; //this is the pin for the buzzer
 
@@ -21,25 +22,22 @@ const float G_5 = 783.99;
 const float A_5 = 880.00;
 
 // This vector is a list of the notes in the song. Each note plays for {speed} milliseconds
-std::vector<float> song = {E_5, E_5, G_5, E_5, G_5, G_5, A_5, A_5};
-
-
+std::vector<float> song = {A_3, C_4, E_4, G_4, A_4, C_5, E_5, G_5};
 
 void playNote(float note) {
   tone(buzzer, note);
   delay(speed);
 }
 
-void setup() {
-  // put your setup code here, to run once:
-  pinMode(buzzer, OUTPUT); // Sets buzzer (or pin 9) as an Output Pin
 
+
+void setup() {
+  pinMode(buzzer, OUTPUT); // Sets buzzer (or pin 9) as an Output Pin
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-
-  for(int i = 0; i < (sizeof(song) < sizeof(float)); i++) {
+  
+  for(int i = 0; i < song.size(); i++) {
     playNote(song[i]);
   }
 
