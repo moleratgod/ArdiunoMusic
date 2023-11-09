@@ -1,7 +1,6 @@
 #include <ArduinoSTL.h>
-
-
-const int buzzer = 9; //this is the pin for the buzzer
+#define buzzer 9
+#define BUTTON_PIN 10
 
 // Assign note names to frequencies
 const int speed = 200;
@@ -21,6 +20,8 @@ const float F_5 = 698.46;
 const float G_5 = 783.99;
 const float A_5 = 880.00;
 
+int last_button_state;
+
 // This vector is a list of the notes in the song. Each note plays for {speed} milliseconds
 std::vector<float> song = {A_3, C_4, E_4, G_4, A_4, C_5, E_5, G_5};
 
@@ -32,13 +33,24 @@ void playNote(float note) {
 
 
 void setup() {
+  Serial.begin(9600);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  last_button_state = digitalRead(BUTTON_PIN);
   pinMode(buzzer, OUTPUT); // Sets buzzer (or pin 9) as an Output Pin
 }
 
 void loop() {
-  
-  for(int i = 0; i < song.size(); i++) {
-    playNote(song[i]);
-  }
 
+  int buttonState = digitalRead(BUTTON_PIN);
+
+  if (buttonState == LOW) {
+    for(int j = song.size(); j > 0; j--) {
+      playNote(song[j-1]);
+    }
+  }
+  else {
+    for(int i = 0; i < song.size(); i++) {
+      playNote(song[i]);
+    }
+  }
 }
